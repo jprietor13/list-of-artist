@@ -2,11 +2,11 @@ import React from 'react'
 import { useParams } from 'react-router-dom'
 import { useGetAlbumsByArtist } from '../hooks/useGetAlbumsByArtist';
 import { useGetSongsByAlbums } from '../hooks/useGetSongsByAlbums';
+import { convertMiliSeconds, filterByReference } from '../utils/utils';
 
 export const SongsByAlbum = () => {
 
   const { idArtist, idAlbum } = useParams();
-
   const { albums } = useGetAlbumsByArtist(idAlbum);
   const { songs } = useGetSongsByAlbums(idAlbum);
 
@@ -22,7 +22,11 @@ export const SongsByAlbum = () => {
     return item.album == idAlbum
   })
 
-  console.log(songsByAlbum)
+  const albumsOfArtist = filterArtist.map(item => {
+    return item.albums
+  })
+
+  const suggestions = filterByReference(songs, albumsOfArtist);
 
   return (
     <>
@@ -31,9 +35,26 @@ export const SongsByAlbum = () => {
         <p>{getAlbum?.name}</p>
       </div>
       <div>
+        <h1>Canciones</h1>
         <ul>
           {songsByAlbum?.songs?.map(item => 
-            <li key={item.id}>{item.name}</li>
+            <li key={item.id}>
+              <p>{item.name}</p>
+              <p>{ convertMiliSeconds(item.duration_ms) }</p>
+            </li>
+          )}
+        </ul>
+        <h1>Sugerencias</h1>
+        <ul>
+          {suggestions.map((item, index) => 
+            <li key={index}>
+              {item.map(subitem =>
+                <div key={subitem.id}>
+                  <p>{subitem.name}</p>
+                  <p>{convertMiliSeconds(subitem.duration_ms)}</p>
+                </div> 
+              )}
+            </li>  
           )}
         </ul>
       </div>

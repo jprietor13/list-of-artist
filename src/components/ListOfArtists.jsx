@@ -12,7 +12,7 @@ export const ListOfArtists = () => {
       <NavLink to={`/artist/${artist.id}`} key={artist.id}>
         <div>
           <img src={artist.image} alt={artist.name} />
-          <p>{artist.name}</p>
+          <p>{artist.name}</p><p>{artist.id}</p>
         </div>
       </NavLink>   
       )}
