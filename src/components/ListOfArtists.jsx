@@ -6,11 +6,12 @@ export const ListOfArtists = () => {
   const artists = useGetListOfArtists();
 
   return (
-    <div>
+    <div className="listArtist__container">
+      <h3 className="listArtist__title">Lista de Artistas</h3>
       {artists.map((artist, index) => (
-        <div key={index}>
+        <div key={index} className="listArtist__artist">
           <NavLink to={`/artist/${artist.id}`}>
-            <div>
+            <div className="listArtist__info">
               <img src={artist.image} alt={artist.name} />
               <p>{artist.name}</p>
             </div>

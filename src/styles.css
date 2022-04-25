@@ -1,0 +1,57 @@
+body {
+  font-family: Arial;
+  font-weight: 500 !important;
+  background-color: black;
+  margin: 0 auto;
+}
+
+h1, p, span, h3 {
+  color: white;
+}
+
+.navbar {
+  background-color: #313030;
+}
+
+.navbar__title {
+  padding: 10px;
+}
+
+.listArtist__container {
+  display: grid;
+  grid-template: repeat(2, 1fr) / repeat(5, 1fr);
+}
+
+.listArtist__artist {
+  text-align: center;
+  margin-top: 20px;
+  position: relative;
+}
+
+.listArtist__title {
+  position: absolute;
+  top: 20px;
+    right: 17px;
+}
+
+.listArtist__artist img{
+  width: 70%;
+  height: 14vw;
+  border-radius: 50%;
+  object-fit: cover;
+  transition-duration: .5s;
+  opacity: 0.5;
+}
+
+.listArtist__artist:hover img {
+  width: 75%;
+  opacity: 1;
+}
+
+.listArtist__artist p {
+  text-decoration: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
