@@ -20,6 +20,9 @@ export const AlbumsByArtists = () => {
 
   return (
     <>
+    <NavLink to={"/"} className="return">
+       Regresar
+    </NavLink> 
     <div>
       <img src={artist?.image} alt={artist?.name} />
       <h2>{artist?.name}</h2>  

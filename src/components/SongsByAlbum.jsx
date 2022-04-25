@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import { useGetAlbumsByArtist } from '../hooks/useGetAlbumsByArtist';
 import { useGetSongsByAlbums } from '../hooks/useGetSongsByAlbums';
-import { convertMiliSeconds, filterByReference, getSongInfo } from '../utils/utils';
+import { convertMiliSeconds, filterByReference } from '../utils/utils';
 import { MediaPlayer } from './MediaPlayer';
 
 export const SongsByAlbum = () => {
@@ -12,6 +12,7 @@ export const SongsByAlbum = () => {
   const { songs } = useGetSongsByAlbums(idAlbum);
   const [song, setSong] = useState({})
   const [showMediaPlay, setShowMediaPlay] = useState(false)
+  const navigate = useNavigate();
 
   const filterArtist = albums.filter(item => {
     return item.artist == idArtist
@@ -39,8 +40,15 @@ export const SongsByAlbum = () => {
     setSong(dataSong)
   }
 
+  const handleReturn = () => {
+    navigate(`/artist/${idArtist}`, { replace: false })
+  }
+
   return (
     <>
+      <span onClick={handleReturn}>
+        Regresar
+      </span>
       <div>
         <img src={getAlbum?.image} alt={getAlbum?.name} />
         <p>{getAlbum?.name}</p>
