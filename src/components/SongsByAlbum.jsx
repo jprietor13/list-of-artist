@@ -1,14 +1,17 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useGetAlbumsByArtist } from '../hooks/useGetAlbumsByArtist';
 import { useGetSongsByAlbums } from '../hooks/useGetSongsByAlbums';
-import { convertMiliSeconds, filterByReference } from '../utils/utils';
+import { convertMiliSeconds, filterByReference, getSongInfo } from '../utils/utils';
+import { MediaPlayer } from './MediaPlayer';
 
 export const SongsByAlbum = () => {
 
   const { idArtist, idAlbum } = useParams();
   const { albums } = useGetAlbumsByArtist(idAlbum);
   const { songs } = useGetSongsByAlbums(idAlbum);
+  const [song, setSong] = useState({})
+  const [showMediaPlay, setShowMediaPlay] = useState(false)
 
   const filterArtist = albums.filter(item => {
     return item.artist == idArtist
@@ -18,7 +21,7 @@ export const SongsByAlbum = () => {
     return item.id == idAlbum
   })
 
-  const songsByAlbum = songs.find(item => {
+  const songsByAlbum = songs?.find(item => {
     return item.album == idAlbum
   })
 
@@ -27,6 +30,14 @@ export const SongsByAlbum = () => {
   })
 
   const suggestions = filterByReference(songs, albumsOfArtist);
+
+  const getSongInfo = (id) => {
+    setShowMediaPlay(true)
+    const dataSong = (songsByAlbum?.songs?.find(item => {
+      return item.id === id
+    }))
+    setSong(dataSong)
+  }
 
   return (
     <>
@@ -38,7 +49,7 @@ export const SongsByAlbum = () => {
         <h1>Canciones</h1>
         <ul>
           {songsByAlbum?.songs?.map(item => 
-            <li key={item.id}>
+            <li key={item.id} onClick={() => getSongInfo(item.id)}>
               <p>{item.name}</p>
               <p>{ convertMiliSeconds(item.duration_ms) }</p>
             </li>
@@ -46,10 +57,10 @@ export const SongsByAlbum = () => {
         </ul>
         <h1>Sugerencias</h1>
         <ul>
-          {suggestions.map((item, index) => 
+          {suggestions?.map((item, index) => 
             <li key={index}>
               {item.map(subitem =>
-                <div key={subitem.id}>
+                <div key={subitem.id} onClick={() => getSongInfo(subitem.id)}>
                   <p>{subitem.name}</p>
                   <p>{convertMiliSeconds(subitem.duration_ms)}</p>
                 </div> 
@@ -57,6 +68,8 @@ export const SongsByAlbum = () => {
             </li>  
           )}
         </ul>
+        {showMediaPlay && <MediaPlayer {...song}/> }
+        
       </div>
     </>
   )
