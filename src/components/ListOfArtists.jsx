@@ -6,8 +6,6 @@ export const ListOfArtists = () => {
 
   const artists  = useGetListOfArtists();
 
-  console.log(artists)
-
   return (
     <div>
       {artists.map(artist =>

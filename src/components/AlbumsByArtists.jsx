@@ -1,21 +1,22 @@
 import React from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, NavLink } from 'react-router-dom'
 import { useGetAlbumsByArtist } from '../hooks/useGetAlbumsByArtist'
 import { useGetListOfArtists } from '../hooks/useGetListOfArtists'
 
 export const AlbumsByArtists = () => {
 
-  const { id } = useParams()
-  const { albums } = useGetAlbumsByArtist(id);
+  const { idArtist } = useParams()
+  const { albums } = useGetAlbumsByArtist(idArtist);
   const artists  = useGetListOfArtists();
 
   const artist = artists.find(item => {
-    return item.id == id
+    return item.id == idArtist
   })
 
   const album = albums.find(item => {
-    return item.artist == id
+    return item.artist == idArtist
   })
+
 
   return (
     <>
@@ -24,11 +25,14 @@ export const AlbumsByArtists = () => {
       <h2>{artist?.name}</h2>  
     </div>
     <div>
-      {album?.albums.map(item => 
-        <div key={item.id}>
-          <img src={item.image} alt={item.name} />
-          <p>{item.name}</p>
-        </div>
+      <h2>Albumes</h2>
+      {album?.albums.map(item =>
+        <NavLink to={`album/${item.id}`} key={item.id}>
+          <div key={item.id}>
+            <img src={item.image} alt={item.name} />
+            <p>{item.name} {item.id}</p>
+          </div>
+        </NavLink> 
       )}
     </div>
     </>
