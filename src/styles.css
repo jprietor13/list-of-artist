@@ -173,6 +173,8 @@ h1, p, span, h3, h4 {
   display: flex;
   border-bottom: 1px solid white;
   position: relative;
+  margin: 0 10px 10px 10px;
+  padding: 0 10px;
 }
 
 .songByAlbum--list--item:hover {
@@ -187,6 +189,10 @@ h1, p, span, h3, h4 {
 .songByAlbum--list--itemduration {
   position: absolute;
   right: 0;
+}
+
+.songByAlbum--list--item p{
+  font-size: 12px;
 }
 
 /*Styles media player*/

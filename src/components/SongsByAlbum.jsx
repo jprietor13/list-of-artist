@@ -12,6 +12,7 @@ export const SongsByAlbum = () => {
   const [song, setSong] = useState({});
   const [suggestion, setSuggestion] = useState([]);
   const [showMediaPlay, setShowMediaPlay] = useState(false);
+  const [isShow, setIsShow] = useState(false);
   const [allDuration, setAllDuration] = useState(0);
   const navigate = useNavigate();
 
@@ -34,6 +35,7 @@ export const SongsByAlbum = () => {
   const suggestions = filterByReference(songs, albumsOfArtist);
 
   const getSongInfo = (id) => {
+    setIsShow(true);
     setShowMediaPlay(true);
     const dataSong = songsByAlbum?.songs?.find((item) => {
       return item.id === id;
@@ -42,6 +44,7 @@ export const SongsByAlbum = () => {
   };
 
   const infoSuggestionSelected = (arr) => {
+    setIsShow(true);
     setShowMediaPlay(false);
     return arr.map((item) => {
       return setSuggestion(item);
@@ -126,10 +129,14 @@ export const SongsByAlbum = () => {
             ))}
           </div>
         </div>
-        {showMediaPlay ? (
-          <MediaPlayer image={getAlbum?.image} {...song} />
-        ) : (
-          <MediaPlayer image={getAlbum?.image} {...suggestion} />
+        {isShow && (
+          <div>
+            {showMediaPlay ? (
+              <MediaPlayer image={getAlbum?.image} {...song} />
+            ) : (
+              <MediaPlayer image={getAlbum?.image} {...suggestion} />
+            )}
+          </div>
         )}
       </div>
     </>
