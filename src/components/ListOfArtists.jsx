@@ -9,7 +9,7 @@ export const ListOfArtists = () => {
     <div className="listArtist__container">
       <h3 className="listArtist__title">Lista de Artistas</h3>
       {artists.map((artist, index) => (
-        <div key={index} className="listArtist__artist">
+        <div key={index} className="albumsByArtist__album--list">
           <NavLink to={`/artist/${artist.id}`}>
             <div className="listArtist__info">
               <img src={artist.image} alt={artist.name} />

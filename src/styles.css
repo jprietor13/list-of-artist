@@ -5,7 +5,7 @@ body {
   margin: 0 auto;
 }
 
-h1, p, span, h3 {
+h1, p, span, h3, h4 {
   color: white;
 }
 
@@ -54,4 +54,88 @@ h1, p, span, h3 {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+/*Styles Album By Artists*/
+.albumsByArtist__artist {
+  text-align: center;
+}
+.albumsByArtist__artist img{
+  width: 18%;
+  height: 17.5vw;
+  border-radius: 50%;
+}
+
+.albumsByArtist__artist--qualification {
+  border-radius: 0 !important;
+  width: 10px !important;
+  height: 10px !important;
+  padding-left: 10px;
+}
+
+.albumsByArtist__artist--popularity {
+  font-size: 12px;
+  padding-left: 2px;
+}
+
+.albumsByArtist__artist--info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.return {
+  position: absolute;
+    top: 40px;
+    right: 180px;
+    color: white;
+    text-decoration: none;
+}
+
+.albumsByArtist__album {
+  display: flex;
+  justify-content: center;
+  background-color: #242323;
+}
+
+.albumsByArtist__album--info {
+  width: 70%;
+}
+
+.albumes-title {
+  padding-left: 15px;
+}
+
+.albumsByArtist__album--list{
+  display: flex;
+  border-bottom: 1px solid white;
+  margin: 0 10px 10px 10px;
+  padding: 0 10px;
+}
+.albumsByArtist__album--info img{
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  position: relative;
+  top: 10px;
+}
+
+.albumsByArtist__album--info p {
+  padding-left: 10px;
+  font-size: 12px;
+}
+
+.albumsByArtist__album--tracks {
+  display: inline-block;
+  width: 100%;
+}
+
+.albumsByArtist__album--arrow-right {
+  width: 20px !important;
+  height: 20px !important;
+  top: 19px !important;
+}
+
+.albumsByArtist__album--list:hover {
+  background-color: #2d2c2c78;
 }
