@@ -169,6 +169,10 @@ h1, p, span, h3, h4 {
   width: 70%;
 }
 
+.suggestions-container {
+  margin-bottom: 110px !important;
+}
+
 .songByAlbum--list--item {
   display: flex;
   border-bottom: 1px solid white;

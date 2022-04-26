@@ -104,8 +104,7 @@ export const SongsByAlbum = () => {
             ))}
           </div>
         </div>
-
-        <div className="songsByAlbum--container">
+        <div className="songsByAlbum--container suggestions-container">
           <div className="songByAlbum--list">
             <h4>Sugerencias</h4>
             {suggestions?.map((item, index) => (
