@@ -11,6 +11,8 @@ h1, p, span, h3, h4 {
 
 .navbar {
   background-color: #313030;
+  margin-top: -20px;
+
 }
 
 .navbar__title {
@@ -30,8 +32,8 @@ h1, p, span, h3, h4 {
 
 .listArtist__title {
   position: absolute;
-  top: 20px;
-    right: 17px;
+  top: 0px;
+  right: 17px;
 }
 
 .listArtist__artist img{
@@ -86,10 +88,10 @@ h1, p, span, h3, h4 {
 
 .return {
   position: absolute;
-    top: 40px;
-    right: 180px;
-    color: white;
-    text-decoration: none;
+  top: 22px;
+  right: 180px;
+  color: white;
+  text-decoration: none;
 }
 
 .albumsByArtist__album {
@@ -138,4 +140,90 @@ h1, p, span, h3, h4 {
 
 .albumsByArtist__album--list:hover {
   background-color: #2d2c2c78;
+}
+
+/*Styles songs by album*/
+ 
+.album-info {
+  background-color: #2d2c2c78;
+  padding: 40px;
+  display: flex;
+  align-items: center;
+}
+
+.album-info__image {
+  width: 210px;
+  height: 200px;
+}
+
+.album-info--description {
+  margin-left: 20px;
+}
+
+.songsByAlbum--container {
+  display: flex;
+  justify-content: center;
+}
+
+.songByAlbum--list {
+  width: 70%;
+}
+
+.songByAlbum--list--item {
+  display: flex;
+  border-bottom: 1px solid white;
+  position: relative;
+}
+
+.songByAlbum--list--item:hover {
+  background-color: #2d2c2c78;
+  cursor: pointer;
+}
+
+.songByAlbum--list--itemindex{
+  margin-right: 30px;
+}
+
+.songByAlbum--list--itemduration {
+  position: absolute;
+  right: 0;
+}
+
+/*Styles media player*/
+
+.mediaplayer-container {
+  background-color: #242323;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  padding: 20px;
+  display: flex;
+}
+
+.mediaplayer--image {
+  width: 40px;
+  height: 40px;
+  border-radius: 5px !important;
+}
+
+.mediaplayer-info {
+  display: flex;
+  padding: 10px 20px;
+}
+
+.mediaplayer-info-list {
+  margin-left: 20px;
+}
+
+.mediaplayer-info-list p {
+  margin: 0;
+  font-weight: bold;
+} 
+
+.mediaplayer-duration {
+  padding-top: 10px;
+}
+
+.title-notFound {
+  text-align: center;
 }

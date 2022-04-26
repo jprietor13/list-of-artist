@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect} from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { useGetAlbumsByArtist } from '../hooks/useGetAlbumsByArtist';
 import { useGetSongsByAlbums } from '../hooks/useGetSongsByAlbums';
@@ -12,6 +12,7 @@ export const SongsByAlbum = () => {
   const { songs } = useGetSongsByAlbums(idAlbum);
   const [song, setSong] = useState({})
   const [showMediaPlay, setShowMediaPlay] = useState(false)
+  const [allDuration, setAllDuration] = useState(0)
   const navigate = useNavigate();
 
   const filterArtist = albums.filter(item => {
@@ -40,43 +41,67 @@ export const SongsByAlbum = () => {
     setSong(dataSong)
   }
 
+  console.log(suggestions)
+
   const handleReturn = () => {
     navigate(`/artist/${idArtist}`, { replace: false })
   }
 
+  useEffect(() => {
+    const duration = songsByAlbum?.songs?.map(item => {
+      return parseInt(item.duration_ms)
+    })
+   
+    const sumDuration = (accumulator, curr) => accumulator + curr;
+    setAllDuration(duration?.reduce(sumDuration));
+  }, [songsByAlbum?.songs])
+
+
   return (
     <>
-      <span onClick={handleReturn}>
+      <span onClick={handleReturn} className="return">
         Regresar
       </span>
-      <div>
-        <img src={getAlbum?.image} alt={getAlbum?.name} />
-        <p>{getAlbum?.name}</p>
+      <h3 className="listArtist__title">Lista de Artistas</h3>
+      <div className='album-info'>
+        <img src={getAlbum?.image} alt={getAlbum?.name} className="album-info__image"/>
+        <div className='album-info--description'>
+          <h3>{getAlbum?.name}</h3>
+          <p>Album - { getAlbum?.name }</p>
+          <p>{getAlbum?.total_tracks} Canciones - {allDuration && convertMiliSeconds(allDuration)}</p>
+        </div>
       </div>
       <div>
-        <h1>Canciones</h1>
-        <ul>
-          {songsByAlbum?.songs?.map(item => 
-            <li key={item.id} onClick={() => getSongInfo(item.id)}>
-              <p>{item.name}</p>
-              <p>{ convertMiliSeconds(item.duration_ms) }</p>
-            </li>
+        <div className='songsByAlbum--container'>
+          <div className="songByAlbum--list">
+          <h4>Canciones</h4>
+          {songsByAlbum?.songs?.map((item, index) => 
+            <div key={item.id} onClick={() => getSongInfo(item.id)} className="songByAlbum--list--item">
+              <p className='songByAlbum--list--itemindex'>{index + 1}</p>
+              <p className='songByAlbum--list--itemname'>{item.name}</p>
+              <p className='songByAlbum--list--itemduration'>{ convertMiliSeconds(item.duration_ms) }</p>
+            </div>
           )}
-        </ul>
-        <h1>Sugerencias</h1>
-        <ul>
+          </div>
+        </div>
+        
+        <div className='songsByAlbum--container'>
+          <div className="songByAlbum--list">
+          <h4>Sugerencias</h4>
           {suggestions?.map((item, index) => 
-            <li key={index}>
-              {item.map(subitem =>
-                <div key={subitem.id} onClick={() => getSongInfo(subitem.id)}>
-                  <p>{subitem.name}</p>
-                  <p>{convertMiliSeconds(subitem.duration_ms)}</p>
+            <div key={index}>
+              {item.map((subitem) =>
+                <div key={subitem.id} onClick={() => getSongInfo(subitem.id)} className="songByAlbum--list--item">
+                  <p className='songByAlbum--list--itemindex'>{index + 1}</p>
+                  <p className='songByAlbum--list--itemname'>{subitem.name}</p>
+                  <p className='songByAlbum--list--itemduration'>{convertMiliSeconds(subitem.duration_ms)}</p>
                 </div> 
               )}
-            </li>  
+            </div>  
           )}
-        </ul>
-        {showMediaPlay && <MediaPlayer {...song}/> }
+          </div>
+        </div>
+        {showMediaPlay && <MediaPlayer image={getAlbum.image} {...song}/> }
         
       </div>
     </>
